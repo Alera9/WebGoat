@@ -91,12 +91,10 @@ public class CSRFIntegrationTest extends IntegrationTest {
 
   private void uploadTrickHtml(String htmlName, String htmlContent) throws IOException {
 
-
     Path webWolfFilePath = Paths.get(webwolfFileDir);
     if (webWolfFilePath.resolve(Paths.get(this.getUser(), htmlName)).toFile().exists()) {
       Files.delete(webWolfFilePath.resolve(Paths.get(this.getUser(), htmlName)));
     }
-
 
     RestAssured.given()
         .when()
@@ -203,14 +201,12 @@ public class CSRFIntegrationTest extends IntegrationTest {
 
   private void checkAssignment8(String goatURL) {
 
-
     registerCSRFUser();
 
     Map<String, Object> params = new HashMap<>();
     params.clear();
     params.put("username", "csrf-" + this.getUser());
     params.put("password", "password");
-
 
     String newCookie =
         RestAssured.given()
@@ -224,7 +220,6 @@ public class CSRFIntegrationTest extends IntegrationTest {
             .extract()
             .cookie("JSESSIONID");
 
-
     RestAssured.given()
         .when()
         .relaxedHTTPSValidation()
@@ -232,7 +227,6 @@ public class CSRFIntegrationTest extends IntegrationTest {
         .get(url("CSRF.lesson.lesson"))
         .then()
         .statusCode(200);
-
 
     boolean result =
         RestAssured.given()
@@ -269,7 +263,6 @@ public class CSRFIntegrationTest extends IntegrationTest {
     Assignment assignment;
     boolean solved;
   }
-
 
   private void registerCSRFUser() {
 
