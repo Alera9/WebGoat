@@ -91,13 +91,13 @@ public class CSRFIntegrationTest extends IntegrationTest {
 
   private void uploadTrickHtml(String htmlName, String htmlContent) throws IOException {
 
-    // remove any left over html
+
     Path webWolfFilePath = Paths.get(webwolfFileDir);
     if (webWolfFilePath.resolve(Paths.get(this.getUser(), htmlName)).toFile().exists()) {
       Files.delete(webWolfFilePath.resolve(Paths.get(this.getUser(), htmlName)));
     }
 
-    // upload trick html
+
     RestAssured.given()
         .when()
         .relaxedHTTPSValidation()
@@ -203,7 +203,7 @@ public class CSRFIntegrationTest extends IntegrationTest {
 
   private void checkAssignment8(String goatURL) {
 
-    // first make sure there is an attack csrf- user
+
     registerCSRFUser();
 
     Map<String, Object> params = new HashMap<>();
@@ -211,7 +211,7 @@ public class CSRFIntegrationTest extends IntegrationTest {
     params.put("username", "csrf-" + this.getUser());
     params.put("password", "password");
 
-    // login and get the new cookie
+
     String newCookie =
         RestAssured.given()
             .when()
@@ -224,7 +224,7 @@ public class CSRFIntegrationTest extends IntegrationTest {
             .extract()
             .cookie("JSESSIONID");
 
-    // select the lesson
+
     RestAssured.given()
         .when()
         .relaxedHTTPSValidation()
@@ -233,7 +233,7 @@ public class CSRFIntegrationTest extends IntegrationTest {
         .then()
         .statusCode(200);
 
-    // click on the assignment
+
     boolean result =
         RestAssured.given()
             .when()
@@ -270,7 +270,7 @@ public class CSRFIntegrationTest extends IntegrationTest {
     boolean solved;
   }
 
-  /** Try to register the new user. Ignore the result. */
+
   private void registerCSRFUser() {
 
     RestAssured.given()
